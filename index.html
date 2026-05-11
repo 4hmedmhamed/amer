@@ -58,7 +58,7 @@
             top: 0;
             transform-origin: top;
             transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            z-index: 5;
+            z-index: 1;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
@@ -84,7 +84,7 @@
             box-shadow: 0 20px 35px rgba(0,0,0,0.2), inset 0 1px 4px white;
             text-align: center;
             position: relative;
-            z-index: 10;
+            z-index: 1000;
             transition: all 0.5s ease;
             backdrop-filter: blur(2px);
             border: 1px solid #ffc0d4;
@@ -155,7 +155,7 @@
             border-radius: 60px;
             display: inline-block;
             margin: 15px 0;
-            font-size: 1.2rem;
+            font-size: .9rem;
             font-weight: bold;
             color: #a13556;
             border: 1px solid #ffa5c2;
@@ -237,7 +237,7 @@
         }
 
         @media (max-width: 550px) {
-            .invitation-card { padding: 18px 12px; }
+            .invitation-card { padding: 8px 2px; }
             .heart-main { font-size: 20px; }
             .names { font-size: 1.3rem; }
         }
