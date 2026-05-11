@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>دعوة خطوبة - بطاقة متحركة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #f8b0b0 0%, #f5a3c1 50%, #ffb7d2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', 'Tahoma', 'Amiri', 'Cairo', sans-serif;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 550px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 600px;
+        }
+
+        /* الظرف */
+        .envelope {
+            width: 100%;
+            max-width: 480px;
+            background: #ffecf0;
+            border-radius: 20px 20px 18px 18px;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.2), inset 0 1px 3px rgba(255,255,255,0.8);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        /* الغطاء العلوي للظرف (المثلث) */
+        .envelope-flap {
+            background: linear-gradient(135deg, #ffd9e4, #ffc0d0);
+            height: 110px;
+            width: 100%;
+            border-radius: 20px 20px 0 0;
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+            position: relative;
+            top: 0;
+            transform-origin: top;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 5;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        /* جيب الظرف السفلي */
+        .envelope-body {
+            background: #ffeef4;
+            padding: 25px 20px 35px;
+            border-radius: 0 0 20px 20px;
+            text-align: center;
+            border-top: 2px dashed #ffb7c7;
+            position: relative;
+            z-index: 2;
+            height:100px;
+        }
+
+        /* الكارت المخبأ داخل الظرف */
+        .invitation-card {
+            background: #fffafd;
+            width: 100%;
+            margin: -200px auto 15px auto;
+            padding: 25px 20px 30px;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2), inset 0 1px 4px white;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(2px);
+            border: 1px solid #ffc0d4;
+            transform: translateY(10px);
+            opacity: 0.98;
+            transform: rotateX(90deg);
+        }
+
+        /* حالة فتح الظرف */
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        .envelope.open .invitation-card {
+            animation: cardPop 0.7s ease-out forwards;
+        }
+
+        @keyframes cardPop {
+            0% {
+                transform: translateY(10px) scale(0.95);
+                opacity: 0.7;
+            }
+            60% {
+                transform: translateY(-30px) scale(1.02);
+            }
+            100% {
+                transform: translateY(-15px) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* أنماط القلب النابض الرئيسي */
+        .heart-main {
+            font-size: 90px;
+            display: inline-block;
+            animation: heartbeat 1.2s infinite ease-in-out;
+            filter: drop-shadow(0 8px 12px rgba(255,60,100,0.3));
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); text-shadow: 0 0 12px #ff3366; }
+        }
+
+        h2 {
+            font-family: 'Amiri', 'Cairo', serif;
+            color: #b13e5c;
+            font-size: 1rem;
+            margin: 6px 0 8px;
+        }
+
+        .names {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #be2e5a;
+            background: linear-gradient(135deg, #ff99bb, #ff6699);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin: 15px 0;
+        }
+
+        .date {
+            background: #ffecf0;
+            padding: 10px;
+            border-radius: 60px;
+            display: inline-block;
+            margin: 15px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #a13556;
+            border: 1px solid #ffa5c2;
+        }
+
+        button {
+            background: #ff80a5;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            background: #e6608a;
+            transform: scale(1.02);
+        }
+
+        /* القلوب المتطايرة من القلب الرئيسي */
+        .floating-heart {
+            position: fixed;
+            pointer-events: none;
+            font-size: 18px;
+            z-index: 2000;
+            animation: flyHeart 1.6s ease-out forwards;
+            filter: drop-shadow(0 0 6px #ff2e5a);
+        }
+
+        @keyframes flyHeart {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx, 80px), var(--ty, -180px)) scale(1.6) rotate(25deg);
+            }
+        }
+
+        /* قلوب إضافية خلفية (animation مستمر) */
+        .bg-heart {
+            position: fixed;
+            bottom: -20px;
+            font-size: 12px;
+            opacity: 0.7;
+            animation: floatUpBg 5s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes floatUpBg {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(25deg);
+                opacity: 0;
+            }
+        }
+
+        /* نص دعوة */
+        .invite-text {
+            color: #5c2e3f;
+            margin: 12px 0;
+            line-height: 1;
+        }
+
+        footer {
+            font-size: 0.75rem;
+            margin-top: 20px;
+            color: #e27c9e;
+        }
+
+        @media (max-width: 550px) {
+            .invitation-card { padding: 18px 12px; }
+            .heart-main { font-size: 20px; }
+            .names { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="envelope" id="envelope">
+        <div class="envelope-flap"></div>
+        <div class="envelope-body">
+                                        <button id="openBtn">💌 افتح الظرف 💌</button>
+
+            <div class="invitation-card" id="inviteCard">
+                <!-- القلب النابض الذي يخرج منه قلوب حمراء -->
+                <div class="heart-main" id="heartEmitter">
+                    ❤️
+                </div>
+                <h2>📜 دعوة خطوبة 📜</h2>
+                <div class="names">
+                    عمرو 🕊️ & 🕊️ نور
+                </div>
+                <div class="invite-text">
+                    يتشرف أهالي العروسين بدعوتكم لحضور حفل خطوبتهما<br>
+                    بحضور ومحبة الله
+                </div>
+                <div class="date">
+                               <div class="countdown" id="countdown">00 : 00 : 00 : 00</div>
+
+                </div>
+                <footer>انقر على القلب ❤️ ليُرسل لك القلوب الحمراء</footer>
+                <button id="">💌  LOCATION 💌</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const envelope = document.getElementById('envelope');
+        const openBtn = document.getElementById('openBtn');
+        let isOpen = false;
+
+        // فتح الظرف عبر الزر أو النقر على الظرف نفسه (ولكن تجنب النقر العشوائي)
+        function openEnvelope() {
+            if (!isOpen) {
+                envelope.classList.add('open');
+                isOpen = true;
+                openBtn.textContent = '✨ تم الفتح ✨';
+                openBtn.disabled = true;
+                openBtn.style.opacity = '0.7';
+            }
+        }
+
+        openBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openEnvelope();
+        });
+
+        envelope.addEventListener('click', (e) => {
+            // لا تفتح إذا كان النقر على الزر أو على القلب (حتى لا يتعارض)
+            if (e.target === openBtn || openBtn.contains(e.target) || e.target.id === 'heartEmitter') return;
+            openEnvelope();
+        });
+
+        // وظيفة إنشاء قلب متطاير من القلب الرئيسي
+        const heartEmitter = document.getElementById('heartEmitter');
+
+        function createFloatingHeart(x, y) {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '❤️';
+            // ألوان عشوائية للقلوب الحمراء (ظلال حمراء)
+            const redShades = ['#ff2a5e', '#ff3366', '#e60049', '#ff4d6d', '#ff1a4f'];
+            heart.style.color = redShades[Math.floor(Math.random() * redShades.length)];
+            heart.style.fontSize = Math.floor(24 + Math.random() * 28) + 'px';
+            // موقع أساسي حول القلب
+            heart.style.left = (x - 20) + 'px';
+            heart.style.top = (y - 20) + 'px';
+            // اتجاه طيران عشوائي
+            const tx = (Math.random() - 0.5) * 160;
+            const ty = -100 - Math.random() * 140;
+            heart.style.setProperty('--tx', tx + 'px');
+            heart.style.setProperty('--ty', ty + 'px');
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 1600);
+        }
+
+        // عند النقر على القلب الرئيسي تولد قلوب متعددة (6-10 قلوب)
+        function emitHeartsFromCenter(event) {
+            const rect = heartEmitter.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const heartsCount = 12 + Math.floor(Math.random() * 10); // 12 إلى 21 قلب
+            for (let i = 0; i < heartsCount; i++) {
+                setTimeout(() => {
+                    createFloatingHeart(centerX + (Math.random() - 0.5) * 24, centerY + (Math.random() - 0.5) * 18);
+                }, i * 40);
+            }
+            // تأثير اهتزاز صغير للقلب
+            heartEmitter.style.transform = 'scale(1.3)';
+            setTimeout(() => { heartEmitter.style.transform = ''; }, 200);
+        }
+
+        heartEmitter.addEventListener('click', (e) => {
+            e.stopPropagation();
+            emitHeartsFromCenter(e);
+        });
+
+        // توليد قلوب خلفية متحركة بشكل مستمر (أجواء رومانسية)
+        function createBackgroundHeart() {
+            const bgHeart = document.createElement('div');
+            bgHeart.className = 'bg-heart';
+            bgHeart.innerHTML = [ '❤️', '💖','🥰','😍','😘'][Math.floor(Math.random() * 5)];
+            bgHeart.style.left = Math.random() * 100 + '%';
+            bgHeart.style.animationDuration = 4 + Math.random() * 5 + 's';
+            bgHeart.style.animationDelay = Math.random() * 8 + 's';
+            bgHeart.style.fontSize = 18 + Math.random() * 24 + 'px';
+            bgHeart.style.opacity = 0.3 + Math.random() * 0.5;
+            document.body.appendChild(bgHeart);
+            setTimeout(() => bgHeart.remove(), 10000);
+        }
+
+        // إضافة قلوب الخلفية كل 1.5 ثانية
+        setInterval(() => {
+            if (document.body.children.length < 80) { // حماية الأداء
+                createBackgroundHeart();
+            }
+        }, 1300);
+
+        // إنشاء 6 قلوب خلفية أولية
+        for (let i = 0; i < 9; i++) {
+            setTimeout(() => createBackgroundHeart(), i * 400);
+        }
+
+        // تأثير إضافي: إذا كان الظرف مفتوحًا والنقر على القلب يكون مميز
+        // لا حاجة لإضافة منطق إضافي.
+        // نضيف أيضاً إمكانية فتح الظرف تلقائياً إذا ضغط الزائر (اختياري)
+        // للترحيب بهذا التصميم الجميل
+        console.log("دعوة الخطوبة جاهزة - اضغط على القلب لإرسال قلوب حمراء");
+    })();
+</script>
+
+
+<script>
+
+/* العد التنازلي */
+const countdown = document.getElementById("countdown");
+const targetDate = new Date("May 15, 2026 20:00:00").getTime();
+
+setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+    const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+    const seconds = Math.floor((distance % (1000*60)) / 1000);
+
+    countdown.innerHTML =
+        `${days} يوم : ${hours} ساعة : ${minutes} دقيقة : ${seconds} ثانية`;
+}, 1000);
+
+/* قلوب طايرة */
+const heartsContainer = document.getElementById('hearts');
+
+function createHeart(){
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = '❤';
+
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (Math.random()*20 + 15) + 'px';
+    heart.style.animationDuration = (Math.random()*5 + 5) + 's';
+
+    heartsContainer.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },8000);
+}
+
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
