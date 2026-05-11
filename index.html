@@ -74,7 +74,11 @@ h1{
     position:absolute;
     width:100%;
     height:100%;
-    background:#f8a9bf;
+    /* background:#f8a9bf; */
+    background-image: url("./Screenshot\ 2026-05-11\ 195123.png");
+    /* background: no-repeat ; */
+    /* background-size: cover; */
+    background-size: cover;
     border-radius:10px;
     bottom:0;
     z-index:2;
@@ -92,6 +96,7 @@ h1{
     transform-origin:top;
     transition:1s;
     z-index:4;
+   /* background-image: url(./Screenshot\ 2026-05-11\ 195732-Photoroom.png); */
 }
 
 /* heart seal */
@@ -107,9 +112,9 @@ h1{
 /* card */
 .card{
     position:absolute;
-    width:270px;
+    width:100%;
     height:360px;
-    background:#fff8f8;
+    /* background:#c41313; */
     border-radius:18px;
     left:50%;
     bottom:20px;
@@ -118,6 +123,12 @@ h1{
     box-shadow:0 15px 30px rgba(0,0,0,.18);
     transition:1.2s;
     z-index:1;
+    background-image: url(./Screenshot\ 2026-05-11\ 195732-Photoroom.png);
+    background-size: cover;
+    /* transform:rotateX(90deg);
+    o */
+    opacity: 0;
+
 }
 
 .card h2{
@@ -172,7 +183,10 @@ h1{
 }
 
 .envelope.open .card{
-    transform:translateX(-50%) translateY(-260px);
+    /* transform:translateX(-50%) translateY(-260px); */
+    z-index: 1000;
+    opacity:1;
+
 }
 
 .envelope.open{
@@ -202,26 +216,26 @@ for(let i=0;i<25;i++){
 </script>
 
 <div class="container">
-    <h1>دعوة خاصة لحضور خطوبتنا 💕</h1>
-    <p class="subtitle">اضغط على الجواب</p>
+    <!-- <h1>دعوة خاصة لحضور خطوبتنا 💕</h1>
+    <p class="subtitle">اضغط على الجواب</p> -->
 
     <div class="envelope" onclick="toggleEnvelope()" id="env">
         <div class="card">
-            <p>يسرنا دعوتكم لحضور</p>
+            <!-- <p>يسرنا دعوتكم لحضور</p>
             <h2>حفل خطوبة</h2>
 
             <div class="names">عمرو 💗 نور</div>
 
-            <div class="date">يوم الجمعة <br>15 / 5</div>
+            <div class="date">يوم الجمعة <br>15 / 5</div> -->
 
-            <div class="countdown">
+            <!-- <div class="countdown">
                 <div class="box">05<br>يوم</div>
                 <div class="box">23<br>ساعة</div>
                 <div class="box">47<br>دقيقة</div>
                 <div class="box">36<br>ثانية</div>
-            </div>
+            </div> -->
 
-            <a href="#" class="map-btn">📍 موقع الخطوبة</a>
+            <!-- <a href="#" class="map-btn">📍 موقع الخطوبة</a> -->
         </div>
 
         <div class="body-envelope"></div>
