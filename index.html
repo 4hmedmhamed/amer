@@ -14,7 +14,7 @@
 }
 
 body{
-    background: linear-gradient(180deg,#ffd6e4,#ffc4d8);
+    background:#e3afaf;
     min-height:100vh;
     display:flex;
     justify-content:center;
@@ -75,7 +75,7 @@ h1{
     width:100%;
     height:100%;
     /* background:#f8a9bf; */
-    background-image: url("./Screenshot\ 2026-05-11\ 195123.png");
+    background-image: url("./one.png");
     /* background: no-repeat ; */
     /* background-size: cover; */
     background-size: cover;
@@ -92,7 +92,7 @@ h1{
     width:100%;
     height:100%;
     clip-path: polygon(0 0,100% 0,50% 60%);
-    background:#f7bdd0;
+    background:#e3afaf;
     transform-origin:top;
     transition:1s;
     z-index:4;
@@ -113,22 +113,21 @@ h1{
 .card{
     position:absolute;
     width:100%;
-    height:360px;
+    height:400px;
     /* background:#c41313; */
-    border-radius:18px;
+    /* border-radius:18px; */
     left:50%;
-    bottom:20px;
+    bottom:0px;
     transform:translateX(-50%);
     padding:20px;
-    box-shadow:0 15px 30px rgba(0,0,0,.18);
     transition:1.2s;
     z-index:1;
-    background-image: url(./Screenshot\ 2026-05-11\ 195732-Photoroom.png);
+    background-image: url(./two.png);
     background-size: cover;
     /* transform:rotateX(90deg);
     o */
     opacity: 0;
-
+ background-color: #e3afaf;
 }
 
 .card h2{
@@ -192,6 +191,9 @@ h1{
 .envelope.open{
     transform:scale(.9);
 }
+.body-envelope.open{
+    opacity: 0;
+}
 
 .click-text{
     margin-top:15px;
@@ -239,8 +241,8 @@ for(let i=0;i<25;i++){
         </div>
 
         <div class="body-envelope"></div>
-        <div class="flap"></div>
-        <div class="seal">💗</div>
+        <!-- <div class="flap"></div> -->
+        <!-- <div class="seal">💗</div> -->
     </div>
 
     <div class="click-text">اضغط للفتح / الغلق</div>
