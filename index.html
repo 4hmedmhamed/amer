@@ -9,7 +9,7 @@
 *{
     margin:0;
     padding:0;
-    box-sizing:border-box;
+    /* box-sizing:border-box; */
     font-family: Arial, sans-serif;
 }
 
@@ -150,11 +150,12 @@ h1{
 }
 
 .countdown{
-    display:flex;
-    justify-content:center;
-    gap:8px;
-    margin-bottom:20px;
+    font-size:24px;
+    color:#ff4f81;
+    font-weight:bold;
+    margin:15px 0;
 }
+
 
 .box{
     background:#ffd6e4;
@@ -229,13 +230,26 @@ for(let i=0;i<25;i++){
             <div class="names">عمرو 💗 نور</div>
 
             <div class="date">يوم الجمعة <br>15 / 5</div> -->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-            <!-- <div class="countdown">
-                <div class="box">05<br>يوم</div>
-                <div class="box">23<br>ساعة</div>
-                <div class="box">47<br>دقيقة</div>
-                <div class="box">36<br>ثانية</div>
+<br>
+<br>
+            <!-- <div class="countdown" id="countdown">
+                
+
+                <div class="box day" id="day" >00 : 00 : 00 : 00<br>يوم</div>
+                <div class="box hours" id="hours">23<br>ساعة</div>
+                <div class="box minutes" id="minutes">47<br>دقيقة</div>
+                <div class="box seconds" id="seconds">36<br>ثانية</div>
             </div> -->
+   <div class="countdown " id="countdown">
+    00:00 :00 : 00
+</div>
 
             <!-- <a href="#" class="map-btn">📍 موقع الخطوبة</a> -->
         </div>
@@ -252,7 +266,87 @@ for(let i=0;i<25;i++){
 function toggleEnvelope(){
     document.getElementById("env").classList.toggle("open");
 }
+const countdown = document.getElementById("countdown");
+const day = document.getElementById("day");
+const targetDate = new Date("May 15, 2026 20:00:00").getTime();
+
+setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+    const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+    const seconds = Math.floor((distance % (1000*60)) / 1000);
+
+    countdown.innerHTML =
+        `${seconds}S:${minutes}M:${hours}H  : ${days}D `;
+  
+    day.innerHTML =
+        `${days} يوم `;
+    hours.innerHTML =
+        `${hours} يوم `;
+    minutes.innerHTML =
+        `${minutes} يوم `;
+    seconds.innerHTML =
+        `${seconds} يوم `;
+}, 1000);
+
 </script>
 
+  <!-- <div class="countdown" id="countdown">00 : 00 : 00 : 00</div>
+
+            <a class="map-btn" href="https://maps.app.goo.gl/1nBFL2e3cmnC7Qhq5" target="_blank">
+                📍 موقع الخطوبة
+            </a>
+        </div>
+        <div class="envelope-body"></div>
+    </div>
+</div>
+
+<script>
+/* فتح الجواب */
+document.getElementById("envelope").addEventListener("click", function(){
+    this.classList.toggle("open");
+});
+
+/* العد التنازلي */
+const countdown = document.getElementById("countdown");
+const targetDate = new Date("May 15, 2026 20:00:00").getTime();
+
+setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+    const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+    const seconds = Math.floor((distance % (1000*60)) / 1000);
+
+    countdown.innerHTML =
+        `${days} يوم : ${hours} ساعة : ${minutes} دقيقة : ${seconds} ثانية`;
+}, 1000);
+
+/* قلوب طايرة */
+const heartsContainer = document.getElementById('hearts');
+
+function createHeart(){
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = '❤';
+
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (Math.random()*20 + 15) + 'px';
+    heart.style.animationDuration = (Math.random()*5 + 5) + 's';
+
+    heartsContainer.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },8000);
+}
+
+setInterval(createHeart, 300);
+</script> -->
 </body>
 </html>
